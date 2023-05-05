@@ -76,9 +76,38 @@
     font-family: 'DigitalFont';
     src: url('ruta/de/la/fuente/DigitalFont.ttf') format('truetype');
   }
-  #reloj {
-    font-family: 'DigitalFont', sans-serif;
-    /* otras reglas CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
+body_reloj {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-repeat: none;
+  background-size: cover;
+}
+.btn-okey {
+  border-radius: 10%;
+  padding: 10%;
+  color: #ffffff;
+  box-shadow: 1% 1% 10% 2% #1cefff;
+  -webkit-animation: glow 2s infinite;
+  animation: glow 2s infinite;
+  background: #1cefff;
+  font-size: 6em;
+  font-family: "Inconsolata", monospace;
+  font-weight: 800;
+}
+
+@-webkit-keyframes glow {
+  50% {
+    box-shadow: 1% 1% 30% 10% lightseagreen;
   }
+}
+@keyframes glow {
+  50% {
+    box-shadow: 1% 1% 30% 10% lightseagreen;
+  }
+}
         
   
