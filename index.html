@@ -10,16 +10,46 @@
     <h1>Pt1: EinesAula</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Inicio</a></li>
+        <li><a href="#inicio">Inicio</a></li>
         <li><a href="#Alarama">Reloj</a></li>
         <li><a href="#">Ruleta</a></li>
       </ul>
     </nav>
     <button id="dark-mode-btn">Modo oscuro</button>
   </header>
-  <h1 class="btn-okey body_reloj">  
-    <div id='reloj'></div> 
-  </h1>
+  <main>
+		<section>
+			<div class="containerAlarmReloj">
+				<h1 id="currentTime" class="display-2 d-flex justify-content-center reloj">00:00:00 --</h1>
+        <br>
+				<div class="row">
+					<div class="col-3">
+						<label for="hour">Horas</label>
+						<input type="number" id="hour" placeholder="00" min="0" max="12" class="form-control">
+					</div>
+          <div class="col-3">
+            <label for="minutes">Minutos</label>
+              <input type="number" id="minutes" min="0" max="59" placeholder="00" class="form-control">
+          </div>
+          <div class="col-3">
+            <label for="seconds">Segundos</label>
+            <input type="number" id="seconds" min="0" max="59" placeholder="00" class="form-control">	
+          </div>
+          <div class="col-3">
+            <label for="type">AM / PM</label>
+            <select name="" id="type" class="form-control">
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+            <br>
+          </div>
+          <div class="col-12 d-flex justify-content-center">
+            <button class="btn btn-warning w-50 ">Establecer Alarma</button>
+          </div>
+			  </div>
+		  </div>
+  	</section>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>

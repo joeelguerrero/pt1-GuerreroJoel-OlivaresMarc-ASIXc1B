@@ -64,50 +64,40 @@
     background-color: #333333;
     color: #ffffff;
   }
-  #reloj {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3em;
-    text-align: center;
+  section {
+    margin: 50px 50px;
+    color: #fff;
+  } 
+  #sono {
+      background-color: lightblue;
+      text-align:center;
+      padding:10px;
   }
-  @font-face {
-    font-family: 'DigitalFont';
-    src: url('ruta/de/la/fuente/DigitalFont.ttf') format('truetype');
-  }
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
-body_reloj {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-repeat: none;
-  background-size: cover;
-}
-.btn-okey {
-  border-radius: 10%;
-  padding: 10%;
-  color: #ffffff;
-  box-shadow: 1% 1% 10% 2% #1cefff;
-  -webkit-animation: glow 2s infinite;
-  animation: glow 2s infinite;
-  background: #1cefff;
-  font-size: 6em;
-  font-family: "Inconsolata", monospace;
-  font-weight: 800;
-}
-
-@-webkit-keyframes glow {
-  50% {
-    box-shadow: 1% 1% 30% 10% lightseagreen;
-  }
-}
-@keyframes glow {
-  50% {
-    box-shadow: 1% 1% 30% 10% lightseagreen;
-  }
-}
-        
   
+  .reloj {
+    font-family: 'Chakra Petch';
+    font-size: 70px;
+    display: flex;
+    justify-content: center;
+    color: #f89602;
+  }
+  
+  .topcontainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .containerAlarm{
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 10px;
+    border: 10px solid rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 19px 5px #000000;
+  }
+  .containerAlarmReloj{
+    background-color: #000000;
+    padding: 40px 0;
+    border-radius: 10px;
+    border: 10px solid #000000;
+    box-shadow: inset 0px 0px 19px 5px #000000;
+  }
