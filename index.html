@@ -21,19 +21,23 @@
     <section id="alarma">
       <div class="container">
         <h1 id="currentTime" class="display-2 reloj">00:00:00 --</h1>
+        <br>
         <div class="row">
           <div class="col-3">
             <label for="hour">Horas</label>
             <input type="number" id="hour" placeholder="00" min="0" max="12" class="form-control">
           </div>
+          <br>
           <div class="col-3">
             <label for="minutes">Minutos</label>
             <input type="number" id="minutes" min="0" max="59" placeholder="00" class="form-control">
           </div>
+          <br>
           <div class="col-3">
             <label for="seconds">Segundos</label>
             <input type="number" id="seconds" min="0" max="59" placeholder="00" class="form-control">  
           </div>
+          <br>
           <div class="col-3">
             <label for="type">AM / PM</label>
             <select id="type" class="form-control">
@@ -41,8 +45,14 @@
               <option value="PM">PM</option>
             </select>
           </div>
+          <br>
           <div class="col-12 d-flex justify-content-center">
             <button id="set-alarm-btn" class="btn btn-warning w-50">Establecer Alarma</button>
+          </div>
+          <br>
+          <div class="containerAlarmReloj">
+            <h1 class="display-2 alarma">Alarma</h1>
+            <h1 id="alarmTime" class="display-2 d-flex justify-content-center reloj"></h1>
           </div>
         </div>
       </div>
