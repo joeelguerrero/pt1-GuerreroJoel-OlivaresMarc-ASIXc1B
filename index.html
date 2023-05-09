@@ -20,7 +20,11 @@
   <main>
     <section id="alarma">
       <div class="container">
-        <h1 id="currentTime" class="display-2 reloj">00:00:00 --</h1>
+        <div class="containerAlarmReloj">
+          <h1 class="display-2 alarma">Alarma</h1>
+          <h1 id="alarmTime" class="display-2 d-flex justify-content-center reloj"></h1>
+          <h2 id="countdown" class="display-3 d-flex justify-content-center reloj alarma"></h2>
+        </div>
         <br>
         <div class="row">
           <div class="col-3">
@@ -50,10 +54,7 @@
             <button id="set-alarm-btn" class="btn btn-warning w-50">Establecer Alarma</button>
           </div>
           <br>
-          <div class="containerAlarmReloj">
-            <h1 class="display-2 alarma">Alarma</h1>
-            <h1 id="alarmTime" class="display-2 d-flex justify-content-center reloj"></h1>
-          </div>
+          <h1 id="currentTime" class="display-2 reloj">00:00:00 --</h1>
         </div>
       </div>
     </section>
