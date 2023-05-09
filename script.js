@@ -58,7 +58,6 @@ function startCountdown(hour, minute, second, type) {
   const countdownInterval = setInterval(() => {
     const currentTime = new Date();
     const remainingTime = Math.max(endTime - currentTime, 0);
-    console.log(remainingTime)
 
     const remainingHours = Math.floor(remainingTime / 3600000);
     const remainingMinutes = Math.floor((remainingTime % 3600000) / 60000);
