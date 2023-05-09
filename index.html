@@ -19,44 +19,41 @@
   </header>
   <main>
     <section id="alarma">
-      <div class="container">
-        <div class="containerAlarmReloj">
-          <h1 class="display-2 alarma">Alarma</h1>
-          <h1 id="alarmTime" class="display-2 d-flex justify-content-center reloj"></h1>
-          <h2 id="countdown" class="display-3 d-flex justify-content-center reloj alarma"></h2>
+        <div class="container">
+            <div class="containerAlarmReloj">
+                <h1 class="display-2 alarma">Alarma</h1>
+                <h1 id="alarmTime" class="display-2 reloj"></h1>
+                <h2 id="countdown" class="display-3 reloj alarma"></h2>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col">
+                    <label for="hour">Horas</label>
+                    <input type="number" id="hour" placeholder="00" min="0" max="12" class="form-control">
+                    </div>
+                    <div class="col">
+                    <label for="minutes">Minutos</label>
+                    <input type="number" id="minutes" min="0" max="59" placeholder="00" class="form-control">
+                    </div>
+                    <div class="col">
+                    <label for="seconds">Segundos</label>
+                    <input type="number" id="seconds" min="0" max="59" placeholder="00" class="form-control">  
+                    </div>
+                    <div class="col">
+                    <label for="type">AM / PM</label>
+                    <select id="type" class="form-control">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                    </div>
+                </div>
+                <br>
+                <div class="col-12 d-flex justify-content-center">
+                    <button id="set-alarm-btn" class="btn btn-warning w-50">Establecer Alarma</button>
+                </div>
+                <h1 id="currentTime" class="display-2 reloj">--:--:--</h1>
+            </div>
         </div>
-        <br>
-        <div class="row">
-          <div class="col-3">
-            <label for="hour">Horas</label>
-            <input type="number" id="hour" placeholder="00" min="0" max="12" class="form-control">
-          </div>
-          <br>
-          <div class="col-3">
-            <label for="minutes">Minutos</label>
-            <input type="number" id="minutes" min="0" max="59" placeholder="00" class="form-control">
-          </div>
-          <br>
-          <div class="col-3">
-            <label for="seconds">Segundos</label>
-            <input type="number" id="seconds" min="0" max="59" placeholder="00" class="form-control">  
-          </div>
-          <br>
-          <div class="col-3">
-            <label for="type">AM / PM</label>
-            <select id="type" class="form-control">
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div>
-          <br>
-          <div class="col-12 d-flex justify-content-center">
-            <button id="set-alarm-btn" class="btn btn-warning w-50">Establecer Alarma</button>
-          </div>
-          <br>
-          <h1 id="currentTime" class="display-2 reloj">00:00:00 --</h1>
-        </div>
-      </div>
     </section>
   </main>
   <script src="script.js"></script>
