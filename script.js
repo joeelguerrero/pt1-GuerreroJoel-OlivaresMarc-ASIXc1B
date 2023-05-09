@@ -1,20 +1,22 @@
+// Obtener elementos del DOM
+const alarmTimeElement = document.getElementById('alarmTime');
+const countdownElement = document.getElementById('countdown');
+const setAlarmButton = document.getElementById('set-alarm-btn');
 const btn = document.getElementById('dark-mode-btn');
 const body = document.querySelector('body');
-const alarmTimeDisplay = document.getElementById('alarmTime');
-const setAlarmBtn = document.getElementById('set-alarm-btn');
-const countdownDisplay = document.getElementById('countdown');
-const audio = new Audio('http://ecxal.code4guate.com/sonido.mp3');
 const hourInput = document.getElementById('hour');
 const minuteInput = document.getElementById('minutes');
 const secondInput = document.getElementById('seconds');
 const typeInput = document.getElementById('type');
-const mensaje = document.getElementById('mensaje');
 
+
+// Función para alternar el modo oscuro
 btn.addEventListener('click', function() {
   body.classList.toggle('dark-mode');
   btn.textContent = body.classList.contains('dark-mode') ? 'Modo claro' : 'Modo oscuro';
 });
 
+// Hora actual
 function formatTime(hour, minute, second, type) {
   hour = parseInt(hour, 10) % 24;
   hour = hour.toString().padStart(2, '0');
@@ -22,7 +24,6 @@ function formatTime(hour, minute, second, type) {
   second = second ? second.toString().padStart(2, '0') : '00';
   return `${hour}:${minute}:${second} ${type}`;
 }
-
 function updateCurrentTime() {
   const date = new Date();
   const currentHour = date.getHours();
@@ -33,84 +34,94 @@ function updateCurrentTime() {
   document.getElementById('currentTime').textContent = fullTime;
 }
 
-function setAlarm() {
-  const selectedHour = hourInput.value;
-  const selectedMinute = minuteInput.value || '00';
-  const selectedSecond = secondInput.value || '00';
-  const selectedType = typeInput.value;
-  const fullAlarmTime = formatTime(selectedHour, selectedMinute, selectedSecond, selectedType);
-  alarmTimeDisplay.textContent = fullAlarmTime;
-  startCountdown(selectedHour, selectedMinute, selectedSecond, selectedType);
-}
+// Variables de estado
+let alarmTime;
+let countdownInterval;
 
-function startCountdown(hour, minute, second, type) {
-  const endTime = new Date();
-  endTime.setHours(hour);
-  endTime.setMinutes(minute);
-  endTime.setSeconds(second);
+// Para establecer la alarma
+function setAlarm() {
+  const hour = parseInt(document.getElementById('hour').value);
+  const minutes = parseInt(document.getElementById('minutes').value) || '00';
+  const seconds = parseInt(document.getElementById('seconds').value) || '00';
+  const type = document.getElementById('type').value;
+
+
+  
+  const now = new Date();
+  alarmTime = new Date();
   
   if (type === 'PM' && hour < 12) {
-    endTime.setHours(endTime.getHours() + 12);
-  } else if (type === 'AM' && hour === 12) {
-    endTime.setHours(0);
+    hour += 12;
   }
+  
+  alarmTime.setHours(hour);
+  alarmTime.setMinutes(minutes);
+  alarmTime.setSeconds(seconds);
+  
+  const countdown = alarmTime - now;
+  
+  if (countdown > 0) {
+    startCountdown(countdown);
+  } else {
+    showAlert('La hora de la alarma debe ser en el futuro');
+  }
+}
+// Para enseñar la alarma
+function updateAlarmTime() {
+  if (alarmTime) {
+    const alarmHour = alarmTime.getHours();
+    const alarmMinute = alarmTime.getMinutes().toString().padStart(2, '0');
+    const alarmSecond = alarmTime.getSeconds().toString().padStart(2, '0');
+    const alarmType = alarmHour < 12 ? 'AM' : 'PM';
+    const fullTime = formatTime(alarmHour, alarmMinute, alarmSecond, alarmType);
+    alarmTimeDisplay.textContent = fullTime;
+  } else {
+    alarmTimeElement.textContent = '--:--:--';
+  }
+}
 
-  const countdownInterval = setInterval(() => {
-    const currentTime = new Date();
-    const remainingTime = Math.max(endTime - currentTime, 0);
-
-    const remainingHours = Math.floor(remainingTime / 3600000);
-    const remainingMinutes = Math.floor((remainingTime % 3600000) / 60000);
-    const remainingSeconds = Math.floor((remainingTime % 60000) / 1000);
-
-    const formattedRemainingHours = remainingHours.toString().padStart(2, '0');
-    const formattedRemainingMinutes = remainingMinutes.toString().padStart(2, '0');
-    const formattedRemainingSeconds = remainingSeconds.toString().padStart(2, '0');
-    
-    const formattedTime = `${remainingHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    countdownDisplay.textContent = formattedTime;
-
-    if (remainingTime <= 0) {
+// Para iniciar el contador
+function startCountdown(countdown) {
+  countdownInterval = setInterval(() => {
+    countdown -= 1000;
+    if (countdown > 0) {
+      updateCountdown(countdown);
+    } else {
       clearInterval(countdownInterval);
-      audio.play();
-      mensaje.innerHTML = '<h1>Alarma sonando</h1>';
-      alert('¡Es la hora de la alarma!');
-      const disableAlarmBtn = document.createElement('button');
-      disableAlarmBtn.textContent = 'Desactivar Alarma';
-      disableAlarmBtn.addEventListener('click', function() {
-      clearInterval(countdownInterval);
-      audio.pause();
-      mensaje.innerHTML = '';
-      hourInput.value = '';
-      minuteInput.value = '';
-      secondInput.value = '';
-      });
-      mensaje.appendChild(disableAlarmBtn);
-      }
-      }, 1000);
-      }
-      
-      function checkAlarm() {
-      const date = new Date();
-      const currentHour = date.getHours();
-      const currentMinute = date.getMinutes();
-      const currentSecond = date.getSeconds();
-      const typeHour = currentHour < 12 ? 'AM' : 'PM';
-      const selectedHour = Number(hourInput.value);
-      const selectedMinute = Number(minuteInput.value || 0);
-      const selectedSecond = Number(secondInput.value || 0);
-      const selectedType = typeInput.value;
-      
-      if (
-      currentHour === selectedHour &&
-      currentMinute === selectedMinute &&
-      currentSecond === selectedSecond &&
-      typeHour === selectedType
-      ) {
-      startCountdown(selectedHour, selectedMinute, selectedSecond, selectedType);
-      }
-      }
-      
-      setInterval(updateCurrentTime, 1000);
-      setAlarmBtn.addEventListener('click', setAlarm);
-      setInterval(checkAlarm, 1000);
+      playAlarm();
+    }
+  }, 1000);
+}
+
+// Para actualizar la visualización del contador
+function updateCountdown(countdown) {
+  const hours = Math.floor(countdown / (1000 * 60 * 60));
+  const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
+  
+  countdownElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Para reproducir la alarma
+function playAlarm() {
+  const audio = new Audio('http://ecxal.code4guate.com/sonido.mp3'); // Ruta al archivo de sonido de alarma
+  audio.play();
+  alert('Es la hora!')
+}
+
+// Para mostrar una alerta
+function showAlert(message) {
+  alert(message);
+}
+
+setInterval(updateCurrentTime, 1000);
+// Asignar eventos a los botones
+setAlarmButton.addEventListener('click', function() {
+  setAlarm();
+  updateAlarmTime();
+});
+setInterval(updateAlarmTime, 1000);
+//setAlarmButton.addEventListener('click', setAlarm);
+darkModeButton.addEventListener('click', toggleDarkMode);
+
+  
