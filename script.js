@@ -164,6 +164,64 @@ setAlarmButton.addEventListener('click', function() {
 });
 setInterval(updateAlarmTime, 1000);
 
+//RULETA:
+// script.js
+const url = 'nombres.json';
+const btnSeleccionar = document.querySelector('#btn-seleccionar');
+const nombreSeleccionado = document.querySelector('#nombre-seleccionado');
+const resultados = document.querySelector('#resultados');
+const sonidoGirar = new Audio('Super Mario Kart - Star Power.mp3');
+const sonidoSeleccionado = new Audio('roblox-death-sound_1.mp3');
+
+// Cargar los nombres desde el archivo JSON
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    const nombres = data.nombres;
+
+    btnSeleccionar.addEventListener('click', () => {
+      // Detener reproducción de la canción anterior
+      sonidoGirar.pause();
+      sonidoGirar.currentTime = 0;
+
+      // Reproducir canción mientras los nombres giran
+      sonidoGirar.play();
+
+      // Mostrar cada nombre con un intervalo de tiempo
+      let i = 0;
+      const temporizador = setInterval(() => {
+        nombreSeleccionado.textContent = nombres[i];
+        i++;
+        if (i >= nombres.length) {
+          clearInterval(temporizador);
+
+          // Detener reproducción de la canción mientras los nombres giran
+          sonidoGirar.pause();
+          sonidoGirar.currentTime = 0;
+
+          // Elegir un nombre al azar y mostrarlo como seleccionado
+          const indice = Math.floor(Math.random() * nombres.length);
+          const nombreSeleccionadoTexto = nombres[indice];
+          nombreSeleccionado.textContent = nombreSeleccionadoTexto;
+
+          // Agregar nombre al historial
+          const hora = new Date().toLocaleTimeString();
+          const resultado = `${hora}: ${nombreSeleccionadoTexto}`;
+          const resultadoLi = document.createElement('li');
+          resultadoLi.textContent = resultado;
+          resultados.appendChild(resultadoLi);
+
+          // Reproducir efecto de sonido de selección
+          sonidoSeleccionado.play();
+        }
+      }, 150);
+    });
+  })
+  .catch(error => console.error(error));
+
+// Agregar una clase adicional para hacer que el nombre salte
+nombreSeleccionado.classList.add('jump');
+
 
 
   
