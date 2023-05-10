@@ -7,10 +7,9 @@
   </head>
   <body>
     <header>
-      <h1>Pt1: EinesAula</h1>
+      <h1 class="nombre">Pt1: EinesAula</h1>
       <nav>
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
           <li><a href="#alarma">Reloj</a></li>
           <li><a href="#ruleta">Ruleta</a></li>
         </ul>
@@ -20,8 +19,8 @@
     <main>
       <section id="alarma">
           <div class="container">
+            <h1 class="display-2 alarma">Alarma</h1>
               <div class="containerAlarmReloj">
-                  <h1 class="display-2 alarma">Alarma</h1>
                   <h1 id="alarmTime" class="display-2 reloj"></h1>
                   <h2 id="countdown" class="display-3 reloj alarma"></h2>
               </div>
@@ -39,19 +38,19 @@
                   <div class="row">
                       <div class="col">
                       <label for="hour">Horas</label>
-                      <input type="number" id="hour" placeholder="00" min="0" max="12" class="form-control">
+                      <input type="number" id="hour" placeholder="00" min="0" max="12" class="form-control recuadro">
                       </div>
                       <div class="col">
                       <label for="minutes">Minutos</label>
-                      <input type="number" id="minutes" min="0" max="59" placeholder="00" class="form-control">
+                      <input type="number" id="minutes" min="0" max="59" placeholder="00" class="form-control recuadro">
                       </div>
                       <div class="col">
                       <label for="seconds">Segundos</label>
-                      <input type="number" id="seconds" min="0" max="59" placeholder="00" class="form-control">  
+                      <input type="number" id="seconds" min="0" max="59" placeholder="00" class="form-control recuadro">  
                       </div>
                       <div class="col">
                       <label for="type">AM / PM</label>
-                      <select id="type" class="form-control">
+                      <select id="type" class="form-control recuadro">
                           <option value="AM">AM</option>
                           <option value="PM">PM</option>
                       </select>
@@ -80,7 +79,7 @@
           <button id="btn-seleccionar">Seleccionar nombre</button>
           <div id="nombre-seleccionado"></div>
           <h2>Historial :</h2>
-          <ul id="resultados"></ul>
+          <ul id="resultados" class="historial"></ul>
         </div>
         <audio id="sonido-seleccion" src="roblox-death-sound_1.mp3"></audio>
         </section>
