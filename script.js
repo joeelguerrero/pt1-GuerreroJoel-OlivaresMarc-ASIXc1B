@@ -8,7 +8,10 @@ const hourInput = document.getElementById('hour');
 const minuteInput = document.getElementById('minutes');
 const secondInput = document.getElementById('seconds');
 const typeInput = document.getElementById('type');
-
+const popup = document.getElementById('popup');
+const popupMessage = document.getElementById('popup-message');
+const popupCloseBtn = document.getElementById('popup-close-btn');
+const audio = new Audio('candy-crush-bomba-color.mp3'); // Ruta al archivo de sonido de alarma
 
 // Función para alternar el modo oscuro
 btn.addEventListener('click', function() {
@@ -24,6 +27,7 @@ function formatTime(hour, minute, second, type) {
   second = second ? second.toString().padStart(2, '0') : '00';
   return `${hour}:${minute}:${second} ${type}`;
 }
+
 function updateCurrentTime() {
   const date = new Date();
   const currentHour = date.getHours();
@@ -45,28 +49,66 @@ function setAlarm() {
   const seconds = parseInt(document.getElementById('seconds').value) || '00';
   const type = document.getElementById('type').value;
 
+  const isAlarmValid = validateAlarmTime(hour, minutes, seconds, type);
 
-  
-  const now = new Date();
-  alarmTime = new Date();
-  
-  if (type === 'PM' && hour < 12) {
-    hour += 12;
-  }
-  
-  alarmTime.setHours(hour);
-  alarmTime.setMinutes(minutes);
-  alarmTime.setSeconds(seconds);
-  
-  const countdown = alarmTime - now;
-  
-  if (countdown > 0) {
-    startCountdown(countdown);
+  if (isAlarmValid) {
+    const now = new Date();
+    alarmTime = new Date();
+
+    if (type === 'PM' && hour < 12) {
+      hour += 12;
+    }
+
+    alarmTime.setHours(hour);
+    alarmTime.setMinutes(minutes);
+    alarmTime.setSeconds(seconds);
+
+    const countdown = alarmTime - now;
+
+    if (countdown > 0) {
+      startCountdown(countdown);
+    } else {
+      showAlert('La hora de la alarma debe ser en el futuro');
+    }
   } else {
     showAlert('La hora de la alarma debe ser en el futuro');
   }
 }
-// Para enseñar la alarma
+// Reiniciar alarma
+const resetAlarmButton = document.getElementById('reset-alarm-btn');
+resetAlarmButton.addEventListener('click', function() {
+  clearInterval(countdownInterval);
+  alarmTime = null;
+  updateAlarmTime();
+});
+
+// Para validar la hora de la alarma
+function validateAlarmTime(hour, minutes, seconds, type) {
+  const now = new Date();
+  const alarmTime = new Date();
+
+  if (type === 'PM' && hour < 12) {
+    hour += 12;
+  }
+
+  alarmTime.setHours(hour);
+  alarmTime.setMinutes(minutes);
+  alarmTime.setSeconds(seconds);
+
+  return alarmTime > now;
+}
+
+// Para mostrar una alerta
+function showAlert(message) {
+  popupMessage.textContent = message;
+  popup.style.display = 'flex';
+
+  popupCloseBtn.addEventListener('click', function() {
+    popup.style.display = 'none';
+  });
+}
+
+// Para actualizar la hora de la alarma
 function updateAlarmTime() {
   if (alarmTime) {
     const alarmHour = alarmTime.getHours();
@@ -74,7 +116,12 @@ function updateAlarmTime() {
     const alarmSecond = alarmTime.getSeconds().toString().padStart(2, '0');
     const alarmType = alarmHour < 12 ? 'AM' : 'PM';
     const fullTime = formatTime(alarmHour, alarmMinute, alarmSecond, alarmType);
-    alarmTimeDisplay.textContent = fullTime;
+
+    if (validateAlarmTime(alarmHour, alarmMinute, alarmSecond, alarmType)) {
+      alarmTimeElement.textContent = fullTime;
+    } else {
+      alarmTimeElement.textContent = '';
+    }
   } else {
     alarmTimeElement.textContent = '--:--:--';
   }
@@ -98,30 +145,25 @@ function updateCountdown(countdown) {
   const hours = Math.floor(countdown / (1000 * 60 * 60));
   const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
-  
+
   countdownElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
 // Para reproducir la alarma
 function playAlarm() {
-  const audio = new Audio('http://ecxal.code4guate.com/sonido.mp3'); // Ruta al archivo de sonido de alarma
   audio.play();
-  alert('Es la hora!')
-}
-
-// Para mostrar una alerta
-function showAlert(message) {
-  alert(message);
+  showAlert('¡Es la hora!');
 }
 
 setInterval(updateCurrentTime, 1000);
+
 // Asignar eventos a los botones
 setAlarmButton.addEventListener('click', function() {
   setAlarm();
   updateAlarmTime();
 });
 setInterval(updateAlarmTime, 1000);
-//setAlarmButton.addEventListener('click', setAlarm);
-darkModeButton.addEventListener('click', toggleDarkMode);
+
+
 
   

@@ -22,9 +22,19 @@
           <div class="container">
               <div class="containerAlarmReloj">
                   <h1 class="display-2 alarma">Alarma</h1>
-                  <h1 id="updateAlarmTime" class="display-2 reloj"></h1>
+                  <h1 id="alarmTime" class="display-2 reloj"></h1>
                   <h2 id="countdown" class="display-3 reloj alarma"></h2>
               </div>
+              <!--                
+              -->
+              <div id="popup" class="popup">
+                <div class="popup-content">
+                  <span id="popup-message" class="popup-message color-message"></span>
+                  <button id="popup-close-btn" class="popup-close-btn">Cerrar</button>
+                </div>
+              </div>
+              <!--
+              -->
               <div class="row">
                   <div class="row">
                       <div class="col">
@@ -48,8 +58,16 @@
                       </div>
                   </div>
                   <br>
-                  <div class="col-12 d-flex justify-content-center">
-                      <button id="set-alarm-btn" class="btn btn-warning w-50">Establecer Alarma</button>
+                  <div class="row">
+                    <div class="col-6 d-flex justify-content-center">
+                      <button id="set-alarm-btn" class="btn btn-warning w-100">Establecer Alarma</button>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-6 d-flex justify-content-center">
+                      <button id="reset-alarm-btn" class="btn btn-warning w-100">Reiniciar Alarma</button>
+                    </div>
                   </div>
                   <h1 id="currentTime" class="display-2 reloj">--:--:--</h1>
               </div>
